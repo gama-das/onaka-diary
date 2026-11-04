@@ -34,17 +34,17 @@ dialog{border:0;border-radius:20px;padding:20px;width:calc(100% - 36px);max-widt
 <div class="choices">
 <button class="choice" data-kind="🤭"><span class="emoji">🤭</span><strong>いい感じ</strong><small>多め</small></button>
 <button class="choice" data-kind="🙂"><span class="emoji">🙂</span><strong>普通</strong><small>普通</small></button>
-<button class="choice" data-kind="😕"><span class="emoji">😕</span><strong>少なめ</strong></button>
+<button class="choice" data-kind="😕"><span class="emoji">😕</span><strong>少なめ</strong><small>少なめ</small></button>
 <button class="choice" data-kind="😥"><span class="emoji">😥</span><strong>いまいち</strong><small>微量</small></button>
 <button class="choice" data-kind="😇"><span class="emoji">😇</span><strong>むむむ</strong><small>便秘</small></button>
-<button class="choice" data-kind="😵‍💫"><span class="emoji">😵‍💫</span><strong>不調</strong><small>下痢</small></button>
+<button class="choice" data-kind="😵‍💫"><span class="emoji">😵‍💫</span><strong>ピー</strong><small>下痢</small></button>
 </div><p class="notice">タップすると現在時刻で記録されます（1日に何回でもOK）</p>
 </section>
 <section class="card">
 <div class="toolbar"><h2>📅 記録カレンダー</h2><div class="monthnav"><button id="prev">‹</button><strong id="monthTitle"></strong><button id="next">›</button></div></div>
 <div class="week"><div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div></div>
 <div class="calendar" id="calendar"></div>
-<div class="legend"><span>🤭 いい感じ</span><span>🙂 普通</span><span>😕 少なめ</span><span>😥 いまいち</span><span>😇 むむむ</span><span>😵‍💫 不調</span></div>
+<div class="legend"><span>🤭 いい感じ</span><span>🙂 普通</span><span>😕 少なめ</span><span>😥 いまいち</span><span>😇 むむむ</span><span>😵‍💫 ピー</span></div>
 </section>
 <section class="card">
 <div class="row"><h2 id="dayHeading">今日の記録</h2><span id="dayCount" class="sub"></span></div>
@@ -58,7 +58,7 @@ dialog{border:0;border-radius:20px;padding:20px;width:calc(100% - 36px);max-widt
 <div class="stat"><div class="num" id="countLess">0</div><span>😕 少なめ</span></div>
 <div class="stat"><div class="num" id="countTiny">0</div><span>😥 いまいち</span></div>
 <div class="stat"><div class="num" id="countConst">0</div><span>😇 むむむ</span></div>
-<div class="stat"><div class="num" id="countLoose">0</div><span>😵‍💫 不調</span></div>
+<div class="stat"><div class="num" id="countLoose">0</div><span>😵‍💫 ピー</span></div>
 </div>
 <div id="bars"></div><p class="notice" id="total"></p>
 </section>
@@ -72,7 +72,7 @@ dialog{border:0;border-radius:20px;padding:20px;width:calc(100% - 36px);max-widt
 <div class="stat"><div class="num" id="allLess">0</div><span>😕 少なめ</span></div>
 <div class="stat"><div class="num" id="allTiny">0</div><span>😥 いまいち</span></div>
 <div class="stat"><div class="num" id="allConst">0</div><span>😇 むむむ</span></div>
-<div class="stat"><div class="num" id="allLoose">0</div><span>😵‍💫 不調</span></div>
+<div class="stat"><div class="num" id="allLoose">0</div><span>😵‍💫 ピー</span></div>
 </div>
 <p class="notice" id="allTotal">全期間の合計 0 回</p>
 </section>
@@ -85,7 +85,7 @@ dialog{border:0;border-radius:20px;padding:20px;width:calc(100% - 36px);max-widt
 <dialog id="editDialog">
 <h2 id="dialogTitle">記録を編集</h2>
 <label>状態</label><select id="editKind">
-<option value="🤭">🤭 いい感じ（多め）</option><option value="🙂">🙂 普通</option><option value="😕">😕 少なめ</option><option value="😥">😥 いまいち（微量）</option><option value="😇">😇 むむむ（便秘）</option><option value="😵‍💫">😵‍💫 不調（下痢）</option>
+<option value="🤭">🤭 いい感じ（多め）</option><option value="🙂">🙂 普通</option><option value="😕">😕 少なめ</option><option value="😥">😥 いまいち（微量）</option><option value="😇">😇 むむむ（便秘）</option><option value="😵‍💫">😵‍💫 ピー（下痢）</option>
 </select>
 <label>日時</label><input id="editDate" type="datetime-local">
 <label>メモ（任意）</label><textarea id="editMemo" rows="2" placeholder="腹痛、食事など"></textarea>
@@ -120,7 +120,7 @@ function render(){
  const allCounts=kinds.map(k=>records.filter(r=>r.kind===k).length);
  ['allGood','allNormal','allLess','allTiny','allConst','allLoose'].forEach((id,i)=>document.getElementById(id).textContent=allCounts[i]);
  document.getElementById('allTotal').textContent=`全期間の合計 ${records.length} 回の記録`;
- const names=['🤭 いい感じ','🙂 普通','😕 少なめ','😥 いまいち','😇 むむむ','😵‍💫 不調'],max=Math.max(1,...counts);
+ const names=['🤭 いい感じ','🙂 普通','😕 少なめ','😥 いまいち','😇 むむむ','😵‍💫 ピー'],max=Math.max(1,...counts);
  document.getElementById('bars').innerHTML=names.map((name,i)=>`<div class="barrow"><span>${name}</span><div class="bar"><div class="fill" style="width:${counts[i]/max*100}%"></div></div><b>${counts[i]}</b></div>`).join('');
  document.getElementById('total').textContent=`合計 ${monthRecords.length} 回の記録`;
  renderDay();
